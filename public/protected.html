@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvP Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">PvP Tracker</a>
+            <!-- Navigation links can be added here if needed, such as About, Contact, etc. -->
+        </nav>
+    </header>
+    <main>
+        <!-- Filter Section for searching PvP matches based on player name or date -->
+        <section id="filter-section">
+            <input type="text" id="filter-name" placeholder="Player Name">
+            <input type="date" id="filter-date">
+            <button onclick="fetchFilteredData()">Filter</button>
+        </section>
+
+        <!-- Matches Section where match details will be dynamically inserted -->
+        <section id="matches">
+            <!-- This area is intended to be populated with match data through JavaScript -->
+        </section>
+
+        <!-- Pagination Controls for navigating through the match entries -->
+        <section id="pagination">
+            <button id="prev-page">« Prev</button>
+            <!-- Page numbers will be dynamically added here by JavaScript as needed -->
+            <button id="next-page">Next »</button>
+        </section>
+
+        <!-- Loading Indicator displayed during data fetch operations -->
+        <div id="loading-indicator" style="display: none;">Loading...</div>
+    </main>
+    <!-- JavaScript files that include the application logic and event handlers -->
+    <script src="main.js"></script>
+    <script src="protected.js"></script>
+</body>
+
+</html>

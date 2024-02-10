@@ -1,0 +1,184 @@
+/* Base Styles */
+body {
+    font-family: 'Noto Sans', sans-serif; /* Sets the font family for the entire body to Noto Sans for a clean, modern look */
+    background: #121212; /* Dark background for a modern, sleek appearance */
+    color: #e0e0e0; /* Light grey text color for readability on the dark background */
+    margin: 0; /* Removes the default margin */
+    padding: 0; /* Removes the default padding */
+}
+
+/* Layout Components */
+header {
+    background: #1f1f1f; /* Slightly lighter dark background for the header for subtle contrast */
+    padding: 1rem; /* Adds padding inside the header for spacing */
+    text-align: center; /* Centers the text inside the header */
+}
+
+.logo {
+    color: #e0e0e0; /* Matches the body text color for consistency */
+    font-size: 2rem; /* Increases the size of the logo text for emphasis */
+    text-decoration: none; /* Removes the default text decoration to make it look cleaner */
+}
+
+main {
+    padding: 20px; /* Adds padding inside the main content area for spacing */
+}
+
+#pagination {
+    display: flex; /* Uses flexbox for a flexible layout */
+    justify-content: center; /* Centers the pagination buttons horizontally */
+    padding: 1rem; /* Adds padding for spacing around the pagination */
+}
+
+#pagination button {
+    background: #444; /* Dark grey background for buttons */
+    color: #fff; /* White text color for contrast */
+    margin: 0 5px; /* Adds margin to the left and right for spacing between buttons */
+    padding: 5px 10px; /* Adds padding inside the buttons for spacing */
+    border: none; /* Removes the default border */
+    border-radius: 5px; /* Rounds the corners of the buttons */
+}
+
+#pagination button:hover {
+    background: #666; /* Lighter grey background on hover for a visual feedback */
+}
+
+/* UI Components */
+button {
+    background-color: #333; /* Dark background for buttons */
+    color: #fff; /* White text color for contrast */
+    border: none; /* Removes the default border */
+    padding: 0.5rem 1rem; /* Adds padding for spacing inside the button */
+    border-radius: 0.3rem; /* Rounds the corners of the button */
+    cursor: pointer; /* Changes the cursor to a pointer on hover for affordance */
+}
+
+button:hover {
+    background-color: #575757; /* Lighter background on hover for visual feedback */
+}
+
+input[type='text'],
+input[type='date'],
+select {
+    background-color: #333; /* Dark background for form inputs */
+    color: #e0e0e0; /* Light grey text color for readability */
+    padding: 0.4rem; /* Adds padding for spacing inside the inputs */
+    margin-right: 0.5rem; /* Adds margin to the right for spacing between form elements */
+    border: 1px solid #ccc; /* Adds a light border for definition */
+    border-radius: 0.3rem; /* Rounds the corners of the inputs */
+}
+
+input[type='text']:focus,
+input[type='date']:focus,
+select:focus {
+    border: 2px solid #ff4081; /* Highlights the border in a bright color on focus for visibility */
+}
+
+/* Match Entry Styles */
+#filters {
+    background-color: #232323; /* Dark background for the filter area for distinction */
+    padding: 1rem; /* Adds padding for spacing inside the filter area */
+    margin: 1rem; /* Adds margin around the filter area for spacing */
+    border-radius: 8px; /* Rounds the corners of the filter area */
+}
+
+.match-entry {
+    background: #333; /* Dark background for each match entry */
+    color: #fff; /* White text color for contrast */
+    margin-bottom: 1rem; /* Adds margin to the bottom for spacing between entries */
+    border-radius: 8px; /* Rounds the corners of the entry */
+    overflow: hidden; /* Hides any overflow content, important for maintaining rounded corners */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.match-entry .match-header {
+    padding: 10px; /* Adds padding for spacing inside the header */
+    cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+    display: flex; /* Uses flexbox for a flexible layout */
+    justify-content: space-between; /* Distributes space between items */
+    align-items: center; /* Aligns items vertically */
+    background: #444; /* Dark grey background for contrast */
+}
+
+.match-entry .combat-report {
+    display: none; /* Hidden by default, will be toggled by JS */
+    background: #232323; /* Dark background for distinction */
+    padding: 10px; /* Adds padding for spacing inside */
+}
+
+.match-entry .combatant {
+    margin-bottom: 0.5rem; /* Adds margin to the bottom for spacing between combatants */
+}
+
+.match-entry .vs {
+    text-align: center; /* Centers the "vs" text */
+    margin: 10px 0; /* Adds top and bottom margin for spacing */
+}
+
+.result-indicator {
+    font-weight: bold; /* Makes the text bold for emphasis */
+    padding: 5px 10px; /* Adds padding for spacing inside */
+    border-radius: 5px; /* Rounds the corners */
+    background: #4caf50; /* Green background for a win indicator */
+    color: #fff; /* White text color for contrast */
+}
+
+.result-indicator.lose {
+    background: #f44336; /* Red background for a lose indicator */
+}
+
+.match-entry:hover {
+    transform: translateY(-2px); /* Moves the entry up slightly on hover for a subtle effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .match-entry .match-header {
+        flex-direction: column; /* Stacks items vertically on smaller screens */
+    }
+}
+
+@media (min-width: 768px) {
+    .table-responsive {
+        overflow-x: visible; /* Allows horizontal scrolling on wider screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .navbar {
+        padding: 0.5rem 1rem; /* Adjusts padding for desktop screens */
+    }
+    .main-content {
+        padding: 1rem; /* Adjusts padding for desktop content */
+        /* Additional desktop-specific styles could be added here */
+    }
+}
+
+/* Additional Styles */
+.highlighted-row {
+    background-color: #f0f0f0; /* Light background for highlighting rows, increasing contrast */
+}
+
+.table-responsive {
+    width: 100%; /* Ensures the table is responsive and fits within its container */
+    overflow-x: auto; /* Allows horizontal scrolling for tables that overflow the viewport */
+}
+
+.damage-chart {
+    margin: 10px 0; /* Adds margin above and below for spacing */
+}
+
+.toggle-chart-btn {
+    background-color: #6a1b9a; /* Purple background for the toggle button */
+    color: #fff; /* White text color for contrast */
+    border: none; /* Removes the default border */
+    padding: 0.5rem 1rem; /* Adds padding for spacing inside the button */
+    margin-top: 0.5rem; /* Adds margin above for spacing */
+    border-radius: 0.3rem; /* Rounds the corners of the button */
+    cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+}
+
+.toggle-chart-btn:hover {
+    background-color: #7e57c2; /* Lighter purple on hover for visual feedback */
+}

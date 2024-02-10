@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Link to the external CSS file for styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Login form setup with POST method to prevent default form submission behavior -->
+  <form id="login-form" action="javascript:void(0);" method="post">
+    <!-- Username input group -->
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Username" required>
+    </div>
+    <!-- Password input group -->
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+    </div>
+    <!-- Submit button for the form -->
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    // Reference to the login form element
+    const loginForm = document.getElementById('login-form');
+    // Add event listener for the form submission
+    loginForm.addEventListener('submit', handleLogin);
+
+    // Function to handle form submission
+    function handleLogin(event) {
+      event.preventDefault(); // Prevent default form submission
+      const formData = new FormData(loginForm); // Create FormData object from the form
+      const username = formData.get('username'); // Extract username
+      const password = formData.get('password'); // Extract password
+      
+      // Attempt to log in with the provided credentials
+      login(username, password);
+    }
+
+    // Function to perform the login operation
+    function login(username, password) {
+      fetch('/login', {
+        method: 'POST', // Use POST method
+        headers: {'Content-Type': 'application/json'}, // Set content type to JSON
+        body: JSON.stringify({ username, password }) // Send credentials as JSON
+      })
+      .then(handleResponse) // Handle the response
+      .catch(handleError); // Handle errors
+    }
+
+    // Function to process the login response
+    function handleResponse(response) {
+      if (response.ok) {
+        // On successful login, redirect to the protected page
+        window.location.href = '/protected';
+      } else {
+        // Notify the user if login fails
+        alert('Login failed. Please try again.');
+      }
+    }
+
+    // Function to handle errors during the fetch operation
+    function handleError(error) {
+      console.error('Error:', error); // Log the error
+      alert('An error occurred. Please try again later.'); // Notify the user
+    }
+  </script>
+
+  <!-- Toggle button for additional details -->
+  <button aria-expanded="false" aria-controls="detailsSection" id="toggleButton">Toggle Details</button>
+  <!-- Hidden section for additional details, shown/hidden by the toggle button -->
+  <div id="detailsSection" aria-hidden="true">
+    <!-- Placeholder for additional content -->
+  </div>
+</body>
+</html>
