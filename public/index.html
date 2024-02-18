@@ -4,23 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PvP Tracker</title>
+    <!-- Link to the external CSS file for styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header Section -->
     <header>
         <h1>PvP Tracker</h1>
     </header>
+
+    <!-- Main Content Section -->
     <main>
+        <!-- Search Section -->
         <section id="search-section">
-            <!-- Placeholder for Search Form -->
+            <h2>Search for Player</h2>
+            <form id="search-form">
+                <input type="text" id="player-name" name="playerName" placeholder="Enter player name" required>
+                <button type="submit">Search</button>
+            </form>
         </section>
+
+        <!-- Results Section -->
         <section id="results-section">
-            <!-- Placeholder for Search Results -->
+            <h2>Search Results</h2>
+            <!-- Search results will be dynamically inserted here by scripts.js -->
+            <div id="search-results"></div>
         </section>
     </main>
+
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 PvP Tracker</p>
     </footer>
+
+    <!-- External JavaScript File -->
     <script src="scripts.js"></script>
 </body>
 </html>

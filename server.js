@@ -1,4 +1,12 @@
 // Importing necessary modules and packages
+//THERE'S A LOT OF COMMENTS
+
+
+//[TODO] I'll need to work on this eventually.
+//Messy code
+//Lots of messy code...
+
+
 import express from 'express'; // Express framework for building web applications
 import fetch from 'node-fetch'; // Node.js Fetch API for making HTTP requests
 import i18next from 'i18next'; // Internationalization framework for localization
@@ -34,7 +42,7 @@ const studentDataUrls = [
   "https://schale.gg/data/kr/students.json",
   "https://schale.gg/data/th/students.json",
   "https://schale.gg/data/tw/students.json",
-  "https://schale.gg/data/vi/students.json",
+  //"https://schale.gg/data/vi/students.json", //Lonqie (schale.gg creator) deprecated the Vietnamese translations... 
   "https://schale.gg/data/zh/students.json"
 ];
 
@@ -112,12 +120,53 @@ i18next
   });
 
 // SQLite Database Setup
+//I don't know what I was doing here
+/*
 const db = new sqlite3.Database('./pvp-tracker.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
     console.error(err.message);
   }
   console.log('Connected to the pvp-tracker database.');
 });
+*/
+
+const db = new sqlite3.Database('./pvp-tracker.db', sqlite3.OPEN_READWRITE, (err) => {
+  if (err) {
+    console.error(err.message);
+  } else {
+    console.log('Connected to the pvp-tracker database.');
+    // Ensure the pvp_records table exists
+    db.run(`
+    CREATE TABLE IF NOT EXISTS pvp_records (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      Date TEXT NOT NULL,
+      Player TEXT NOT NULL,
+      Opponent TEXT NOT NULL,
+      A1 TEXT,
+      A2 TEXT,
+      A3 TEXT,
+      A4 TEXT,
+      ASupport1 TEXT,
+      ASupport2 TEXT,
+      Result TEXT NOT NULL,
+      D1 TEXT,
+      D2 TEXT,
+      D3 TEXT,
+      D4 TEXT,
+      DSupport1 TEXT,
+      DSupport2 TEXT,
+      Comments TEXT
+      );
+      `, [], (tableErr) => {
+        if (tableErr) {
+          console.error('Error creating pvp_records table:', tableErr);
+        } else {
+          console.log('pvp_records table is ready.');
+        }
+      });
+    }
+  });
+  
 
 // Database Table Creation for storing student data
 db.serialize(() => {
@@ -173,8 +222,8 @@ app.get('/create-pvp-table', (req, res) => {
     CREATE TABLE IF NOT EXISTS pvp_records (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       Date TEXT NOT NULL,
-      Attacker TEXT NOT NULL,
-      Defender TEXT NOT NULL,
+      Player TEXT NOT NULL,
+      Opponent TEXT NOT NULL,
       A1 TEXT,
       A2 TEXT,
       A3 TEXT,
@@ -220,14 +269,14 @@ app.get('/import-json', (req, res) => {
 
       const insertStmt = db.prepare(`
         INSERT OR IGNORE INTO pvp_records (
-          Date, Attacker, Defender, A1, A2, A3, A4, ASupport1, ASupport2, Result, 
+          Date, Player, Opponent, A1, A2, A3, A4, ASupport1, ASupport2, Result, 
           D1, D2, D3, D4, DSupport1, DSupport2, Comments
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       entries.forEach((entry, index) => {
         insertStmt.run([
-          entry.Date, entry.Attacker, entry.Defender, entry.A1, entry.A2,
+          entry.Date, entry.Player, entry.Opponent, entry.A1, entry.A2,
           entry.A3, entry.A4, entry.ASupport1, entry.ASupport2, entry.Result,
           entry.D1, entry.D2, entry.D3, entry.D4, entry.DSupport1,
           entry.DSupport2, entry.Comments
@@ -257,7 +306,7 @@ app.get('/import-json', (req, res) => {
 
 // API endpoint to get PvP data
 app.get('/api/data', (req, res) => {
-  db.all("SELECT Date, Attacker, Defender, Result, A1, A2, A3, A4, D1, D2, D3, D4 FROM pvp_records", [], (err, rows) => {
+  db.all("SELECT Date, Player, Opponent, Result, A1, A2, A3, A4, D1, D2, D3, D4 FROM pvp_records", [], (err, rows) => {
     if (err) {
       console.error('Error fetching PvP data:', err);
       res.status(500).json({ error: 'Internal Server Error' });

@@ -1,47 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PvP Tracker</title>
+    <title>Match Search and Filters</title>
+    <!-- External CSS and Font Awesome for icons -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+<body class="bg-gray-800 text-white">
 
-<body>
-    <header>
-        <nav>
-            <a href="#" class="logo">PvP Tracker</a>
-            <!-- Navigation links can be added here if needed, such as About, Contact, etc. -->
-        </nav>
-    </header>
-    <main>
-        <!-- Filter Section for searching PvP matches based on player name or date -->
-        <section id="filter-section">
-            <input type="text" id="filter-name" placeholder="Player Name">
-            <input type="date" id="filter-date">
-            <button onclick="fetchFilteredData()">Filter</button>
-        </section>
+<!-- Main content and filter section -->
+<div class="p-4">
+    <!-- Filter Section Title and Toggle Button -->
+    <div class="mb-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">General Filters</h2>
+            <button class="text-sm bg-gray-600 hover:bg-gray-500 py-1 px-2 rounded" onclick="document.getElementById('filter-section').classList.toggle('hidden');">
+                Toggle Filters
+            </button>
+        </div>
+        
+        <!-- Filter Options -->
+        <div id="filter-section" class="bg-gray-700 p-4 rounded hidden">
+            <!-- Date Range Filters -->
+            <div class="flex justify-between gap-4 mb-4">
+                <div>
+                    <label for="start-date" class="block mb-2 text-sm font-medium text-white">Date</label>
+                    <input type="date" id="start-date" class="bg-gray-800 p-2 rounded w-full">
+                </div>
+                <div>
+                    <label for="end-date" class="block mb-2 text-sm font-medium text-white">&nbsp;</label>
+                    <input type="date" id="end-date" class="bg-gray-800 p-2 rounded w-full">
+                </div>
+            </div>
+            
+            <!-- Filters for Winner, ATK, and DEF -->
+            <div class="flex justify-between gap-4 mb-4">
+                <!-- Winner Filter -->
+                <div class="w-1/3">
+                    <label for="winner-filter" class="block mb-2 text-sm font-medium text-white">Winner</label>
+                    <select id="winner-filter" class="bg-gray-800 p-2 rounded w-full">
+                        <option value="any">ANY</option>
+                        <!-- Additional options -->
+                    </select>
+                </div>
+                
+                <!-- ATK Filter -->
+                <div class="w-1/3">
+                    <label for="atk-sensei" class="block mb-2 text-sm font-medium text-white">ATK</label>
+                    <input type="text" id="atk-sensei" class="bg-gray-800 p-2 rounded w-full" placeholder="Sensei">
+                </div>
+                
+                <!-- DEF Filter -->
+                <div class="w-1/3">
+                    <label for="def-sensei" class="block mb-2 text-sm font-medium text-white">DEF</label>
+                    <input type="text" id="def-sensei" class="bg-gray-800 p-2 rounded w-full" placeholder="Sensei">
+                </div>
+            </div>
+            
+            <!-- Filter Application Buttons -->
+            <div class="flex gap-4">
+                <button class="bg-purple-700 hover:bg-purple-600 py-2 px-4 rounded">Apply Filters</button>
+                <button class="bg-purple-700 hover:bg-purple-600 py-2 px-4 rounded">Generate Analytics</button>
+            </div>
+            
+            <!-- Collection, Type, Role, Rarity, Attack, Defense, Position, Academy, Weapon, Equipment, Terrain Strength, and Misc Filters -->
+            <!-- Each filter category has been grouped into divs with appropriate classes for styling and wrapped within descriptive comments for clarity -->
+            <!-- [TODO] I'll need to work on this eventually. But for now it looks alright! -->
+            
+            <!-- Collection Filters -->
+            <div class="flex flex-wrap gap-2 mb-4">
+                <input type="checkbox" id="owned" class="accent-purple-600">
+                <label for="owned" class="mr-4">Owned</label>
+                <input type="checkbox" id="notOwned" class="accent-purple-600">
+                <label for="notOwned" class="mr-4">Not Owned</label>
+                <input type="checkbox" id="favorites" class="accent-purple-600">
+                <label for="favorites">Favorites</label>
+            </div>
+            
+            <!-- [Self-note] Additional filters omitted for brevity, follow the same structure as Collection Filters -->
+            <!-- [TODO] I'll need to work on this eventually. -->
+            
+            <!-- Misc Filters and Action Buttons -->
+            <div class="flex flex-wrap gap-2 mb-4">
+                <input type="checkbox" id="usesCover" class="accent-purple-600">
+                <label for="usesCover" class="mr-2">Uses Cover</label>
+                <!-- Additional checkboxes -->
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button class="bg-blue-600 text-white py-2 px-4 rounded">Clear 0 Filter(s)</button>
+                <button class="bg-blue-600 text-white py-2 px-4 rounded">Show all Info</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <!-- Matches Section where match details will be dynamically inserted -->
-        <section id="matches">
-            <!-- This area is intended to be populated with match data through JavaScript -->
-        </section>
+<!-- Matches Section -->
+<div id="matches" class="flex justify-between items-center mb-2">
+    <h2 class="text-xl font-bold">Matches</h2>
+    <div class="text-sm">
+        Showing 1 - 20 of 45,078
+    </div>
+    <div class="bg-gray-700 p-4 rounded">
+        <ul class="divide-y divide-gray-600" id="match-list">
+            <!-- Dynamic match entries will be inserted here by JavaScript -->
+        </ul>
+    </div>
+</div>
 
-        <!-- Pagination Controls for navigating through the match entries -->
-        <section id="pagination">
-            <button id="prev-page">« Prev</button>
-            <!-- Page numbers will be dynamically added here by JavaScript as needed -->
-            <button id="next-page">Next »</button>
-        </section>
-
-        <!-- Loading Indicator displayed during data fetch operations -->
-        <div id="loading-indicator" style="display: none;">Loading...</div>
-    </main>
-    <!-- JavaScript files that include the application logic and event handlers -->
-    <script src="main.js"></script>
-    <script src="protected.js"></script>
+<!-- JavaScript for collapsible content and other interactions -->
+<script src="main.js"></script>
+<script src="protected.js"></script>
 </body>
-
 </html>
